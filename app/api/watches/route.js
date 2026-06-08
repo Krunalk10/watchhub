@@ -15,7 +15,7 @@ export async function GET(request) {
         const maxPrice = Math.max(minPrice, parseInt(searchParams.get('maxPrice') || '50000'));
         const sort = searchParams.get('sort') || 'newest';
 
-        console.log('[v0] Watches API called with params:', { page, perPage, search, brand, minPrice, maxPrice, sort });
+        console.log('Watches API called with params:', { page, perPage, search, brand, minPrice, maxPrice, sort });
 
         if (!watchesData || !Array.isArray(watchesData.watches)) {
           throw new Error('Watch data is unavailable');

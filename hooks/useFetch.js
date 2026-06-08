@@ -6,7 +6,6 @@ export function useFetch(url, options) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Create an abort controller for cancellation
     const abortController = new AbortController();
 
     const fetchData = async () => {
@@ -39,11 +38,11 @@ export function useFetch(url, options) {
             }
 
             setData(result);
-            console.log('[v0] Successfully fetched data');
+            console.log('Successfully fetched data');
             resolve(result);
           } catch (err) {
             const errorMsg = err instanceof Error ? err.message : String(err);
-            console.error('[v0] Fetch error:', errorMsg);
+            console.error(' Fetch error:', errorMsg);
             const error = new Error(errorMsg);
             setError(error);
             reject(error);
@@ -52,7 +51,6 @@ export function useFetch(url, options) {
           }
         });
       } catch (err) {
-        // Handle abort error silently
         if (err instanceof Error && err.name === 'AbortError') {
           console.log('[v0] Fetch request was cancelled');
           return;
@@ -66,7 +64,6 @@ export function useFetch(url, options) {
 
     fetchData();
 
-    // Cleanup function to abort request on unmount
     return () => {
       abortController.abort();
     };

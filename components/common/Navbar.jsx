@@ -48,10 +48,10 @@ export function Navbar() {
           <div className="hidden md:flex items-center gap-4">
             {isAuthenticated && (
               <>
-                <Link href="/wishlist" className="text-foreground hover:text-secondary transition">
+                <Link href="/Pages/wishlist" className="text-foreground hover:text-secondary transition">
                   Wishlist
                 </Link>
-                <Link href="/cart" className="text-foreground hover:text-secondary transition">
+                <Link href="/Page/cart" className="text-foreground hover:text-secondary transition">
                   Cart
                 </Link>
                 <span className="text-sm text-muted-foreground">{user?.email}</span>
@@ -104,7 +104,7 @@ export function Navbar() {
                 <Link href="/Pages/wishlist" className="block text-foreground hover:text-secondary py-2">
                   Wishlist
                 </Link>
-                <Link href="/cart" className="block text-foreground hover:text-secondary py-2">
+                <Link href="/Pages/cart" className="block text-foreground hover:text-secondary py-2">
                   Cart
                 </Link>
                 <button
@@ -119,7 +119,7 @@ export function Navbar() {
                 <Link href="/Pages/login" className="block text-foreground hover:text-secondary py-2">
                   Login
                 </Link>
-                <Link href="/signup" className="block text-foreground hover:text-secondary py-2">
+                <Link href="/Pages/signup" className="block text-foreground hover:text-secondary py-2">
                   Sign Up
                 </Link>
               </>
