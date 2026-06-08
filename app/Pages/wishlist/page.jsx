@@ -1,18 +1,16 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Layout } from "@/components/common/Layout.js";
-import { WatchCard } from "@/components/common/WatchCard.js";
+import { Layout } from "@/components/common/Layout.jsx";
+// import { WatchCard } from "@/components/common/WatchCard.jsx";
 import { useAuth } from "@/hooks/useAuth.js";
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
-
-
 export default function WishlistPage() {
   const { isAuthenticated } = useAuth();
   const router = useRouter();
-  const [wishlistItems, setWishlistItems] = useState<Watch[]>([]);
+  const [wishlistItems, setWishlistItems] = useState([]);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -28,7 +26,7 @@ export default function WishlistPage() {
 
   if (!mounted) return null;
 
-  const handleRemoveFromWishlist = (id: number) => {
+  const handleRemoveFromWishlist = (id) => {
     const updated = wishlistItems.filter(item => item.id !== id);
     setWishlistItems(updated);
     sessionStorage.setItem('wishlist', JSON.stringify(updated));
@@ -36,7 +34,7 @@ export default function WishlistPage() {
 
   const handleAddToCart = (watch) => {
     const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
-    const existingItem = cart.find((item: any) => item.id === watch.id);
+    const existingItem = cart.find((item) => item.id === watch.id);
 
     if (existingItem) {
       existingItem.quantity += 1;
@@ -49,7 +47,7 @@ export default function WishlistPage() {
   };
 
   return (
-    
+    <Layout>
       <div className="max-w-7xl mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold text-foreground mb-8">My Wishlist</h1>
 
@@ -81,7 +79,7 @@ export default function WishlistPage() {
                 </Link>
 
                 <div className="flex-1 flex flex-col justify-between">
-                  
+                  <div>
                     <p className="text-secondary font-semibold text-sm mb-1">{watch.brand}</p>
                     <h3 className="text-xl font-semibold text-foreground mb-2">{watch.name}</h3>
 

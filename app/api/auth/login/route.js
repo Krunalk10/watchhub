@@ -3,7 +3,6 @@ import { validateAuth } from '@/lib/api.js';
 
 export async function POST(request) {
   try {
-    // Parse request body with error handling
     let requestBody;
     try {
       requestBody = await request.json();
@@ -17,7 +16,6 @@ export async function POST(request) {
 
     const { email, password } = requestBody;
 
-    // Validate required fields
     if (!email || !password) {
       return NextResponse.json(
         { error: 'Email and password are required' },
@@ -25,7 +23,6 @@ export async function POST(request) {
       );
     }
 
-    // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return NextResponse.json(
@@ -34,7 +31,6 @@ export async function POST(request) {
       );
     }
 
-    // Authenticate user
     const user = await Promise.resolve(validateAuth(email, password));
 
     if (!user) {
@@ -44,7 +40,6 @@ export async function POST(request) {
       );
     }
 
-    // Create a simple token
     const token = Buffer.from(`${user.id}:${Date.now()}`).toString('base64');
 
     return NextResponse.json({

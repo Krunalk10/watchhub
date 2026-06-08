@@ -28,10 +28,8 @@ export default function Page() {
 
   return (
     <Layout>
-      {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-card to-muted py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          {/* Left Content */}
           <div className="flex flex-col justify-center">
             <p className="text-secondary font-semibold text-sm mb-2">DISCOVER LUXURY</p>
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4 text-balance">
@@ -56,10 +54,9 @@ export default function Page() {
             </div>
           </div>
 
-          {/* Right Image */}
           <div className="relative h-96 md:h-full min-h-96">
             <Image
-              src="/hero-watch.png"
+              src="/watches/hero-watch.png"
               alt="Premium Watch"
               fill
               className="object-cover rounded"
@@ -70,7 +67,6 @@ export default function Page() {
         </div>
       </section>
 
-      {/* Featured Section */}
       <section className="max-w-7xl mx-auto px-4 py-16 md:py-24">
         <div className="text-center mb-12">
           <p className="text-secondary font-semibold text-sm mb-2">OUR COLLECTION</p>
@@ -106,7 +102,6 @@ export default function Page() {
         </div>
       </section>
 
-      {/* Stats Section */}
       <section className="bg-foreground text-background py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
           <div>

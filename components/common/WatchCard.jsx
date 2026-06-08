@@ -30,7 +30,6 @@ export function WatchCard({ watch, onAddToCart, onAddToWishlist }) {
   return (
     <Link href={`/watches/${watch.id}`}>
       <div className="bg-card rounded overflow-hidden shadow hover:shadow-xl transition-all duration-300 h-full flex flex-col group cursor-pointer">
-        {/* Image Container */}
         <div className="relative overflow-hidden bg-muted h-64">
           <Image
             src={watch.image}
@@ -45,12 +44,10 @@ export function WatchCard({ watch, onAddToCart, onAddToWishlist }) {
           </div>
         </div>
 
-        {/* Content */}
         <div className="flex-1 p-4 flex flex-col">
           <p className="text-xs text-muted-foreground font-semibold mb-1">{watch.brand}</p>
           <h3 className="font-semibold text-foreground mb-2 line-clamp-2">{watch.name}</h3>
 
-          {/* Rating */}
           <div className="flex items-center gap-1 mb-4">
             <div className="flex gap-1">
               {[...Array(5)].map((_, i) => (
@@ -60,9 +57,10 @@ export function WatchCard({ watch, onAddToCart, onAddToWishlist }) {
               ))}
             </div>
             <span className="text-xs text-muted-foreground">({watch.reviews})</span>
+            <br />
+            <h6>Price: ${watch.price} </h6>
           </div>
 
-          {/* Action Buttons */}
           <div className="flex gap-2 mt-auto">
             <button
               onClick={handleAddToCart}

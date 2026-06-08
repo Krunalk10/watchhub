@@ -16,15 +16,13 @@ export function Navbar() {
   };
 
   return (
-    <nav className="bg-card border-b border-border">
+    <nav className="relative z-50 bg-card border-b border-border">
       <div className="max-w-7xl mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          {/* Logo */}
           <Link href="/" className="text-2xl font-semibold text-foreground hover:text-secondary transition">
-            WatchHub
+            Watch
           </Link>
 
-          {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-8">
             <Link href="/watches" className="text-foreground hover:text-secondary transition">
               Watches
@@ -47,7 +45,6 @@ export function Navbar() {
             </div>
           </div>
 
-          {/* Right Side */}
           <div className="hidden md:flex items-center gap-4">
             {isAuthenticated && (
               <>
@@ -68,14 +65,14 @@ export function Navbar() {
             )}
             {!isAuthenticated && (
               <>
+               <Link
+                href="/Pages/login"
+                className="px-4 py-2 border border-foreground text-foreground hover:bg-foreground hover:text-background transition rounded"
+              >
+                Login
+              </Link>
                 <Link
-                  href="/login"
-                  className="px-4 py-2 border border-foreground text-foreground hover:bg-foreground hover:text-background transition rounded"
-                >
-                  Login
-                </Link>
-                <Link
-                  href="/signup"
+                  href="/Pages/signup"
                   className="px-4 py-2 bg-foreground text-background hover:bg-secondary hover:text-foreground transition rounded"
                 >
                   Sign Up
@@ -84,7 +81,6 @@ export function Navbar() {
             )}
           </div>
 
-          {/* Mobile Menu Button */}
           <button
             className="md:hidden text-foreground"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -95,7 +91,6 @@ export function Navbar() {
           </button>
         </div>
 
-        {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="md:hidden mt-4 space-y-2 border-t border-border pt-4">
             <Link href="/watches" className="block text-foreground hover:text-secondary py-2">
@@ -106,7 +101,7 @@ export function Navbar() {
             </Link>
             {isAuthenticated ? (
               <>
-                <Link href="/wishlist" className="block text-foreground hover:text-secondary py-2">
+                <Link href="/Pages/wishlist" className="block text-foreground hover:text-secondary py-2">
                   Wishlist
                 </Link>
                 <Link href="/cart" className="block text-foreground hover:text-secondary py-2">
@@ -121,7 +116,7 @@ export function Navbar() {
               </>
             ) : (
               <>
-                <Link href="/login" className="block text-foreground hover:text-secondary py-2">
+                <Link href="/Pages/login" className="block text-foreground hover:text-secondary py-2">
                   Login
                 </Link>
                 <Link href="/signup" className="block text-foreground hover:text-secondary py-2">

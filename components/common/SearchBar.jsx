@@ -7,7 +7,6 @@ export function SearchBar({ onSearch, placeholder = 'Search watches...' }) {
   const [query, setQuery] = useState('');
   const debouncedQuery = useDebounce(query, 300);
 
-  // Call onSearch when debounced query changes
   if (debouncedQuery !== query.slice(0, debouncedQuery.length)) {
     onSearch(debouncedQuery);
   }

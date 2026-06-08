@@ -130,6 +130,7 @@ export default function CartPage() {
               </div>
             </div>
 
+            {/* Summary */}
             <div className="lg:col-span-1">
               <div className="bg-card rounded p-6 border border-border sticky top-4">
                 <h2 className="text-lg font-bold text-foreground mb-6">Order Summary</h2>

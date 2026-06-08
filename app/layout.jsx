@@ -9,7 +9,7 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata = {
-  title: 'WatchHub - Premium Watch Store',
+  title: 'Watch- Premium Watch Store',
   description: 'Discover luxury watches from world-renowned brands. Rolex, Omega, Patek Philippe, and more.',
   generator: 'v0.app',
   icons: {

@@ -5,7 +5,6 @@ export async function GET(request, { params }) {
   try {
     return await Promise.resolve().then(async () => {
       try {
-        // Extract and validate ID
         const { id } = await Promise.resolve(params);
         const watchId = parseInt(id);
 
@@ -18,12 +17,10 @@ export async function GET(request, { params }) {
 
         console.log('[v0] Fetching watch with ID:', watchId);
 
-        // Validate data exists
         if (!watchesData || !Array.isArray(watchesData.watches)) {
           throw new Error('Watch data is unavailable');
         }
 
-        // Find watch
         const watch = await Promise.resolve(
           watchesData.watches.find(w => w.id === watchId)
         );
@@ -36,7 +33,6 @@ export async function GET(request, { params }) {
           );
         }
 
-        // Get related watches
         const relatedWatches = await Promise.resolve(
           watchesData.watches.filter(
             w => watch.relatedProducts && watch.relatedProducts.includes(w.id)

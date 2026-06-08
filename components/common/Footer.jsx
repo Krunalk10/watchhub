@@ -5,7 +5,6 @@ export function Footer() {
     <footer className="bg-foreground text-background mt-16">
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-          {/* About */}
           <div>
             <h3 className="text-xl font-semibold mb-4">WatchHub</h3>
             <p className="text-sm opacity-80">
@@ -13,7 +12,6 @@ export function Footer() {
             </p>
           </div>
 
-          {/* Shop */}
           <div>
             <h4 className="font-semibold mb-4">Shop</h4>
             <ul className="space-y-2 text-sm">
@@ -24,7 +22,6 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Customer Service */}
           <div>
             <h4 className="font-semibold mb-4">Customer Service</h4>
             <ul className="space-y-2 text-sm">
@@ -35,7 +32,6 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Information */}
           <div>
             <h4 className="font-semibold mb-4">Information</h4>
             <ul className="space-y-2 text-sm">

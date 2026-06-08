@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from "@/hooks/useAuth.js";
-import { Layout } from "@/components/common/Layout.js";
+import { Layout } from "@/components/common/Layout.jsx";
 
 export default function SignupPage() {
   const [email, setEmail] = useState('');
@@ -24,14 +24,14 @@ export default function SignupPage() {
       await signup(email, password, confirmPassword);
       router.push('/');
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Signup failed');
+      setError(err?.message || 'Signup failed');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    
+    <Layout>
       <div className="min-h-[calc(100vh-200px)] flex items-center justify-center px-4">
         <div className="w-full max-w-md bg-card rounded p-8 shadow-lg border border-border">
           <h1 className="text-3xl font-semibold text-foreground mb-2">Create Account</h1>
@@ -44,7 +44,7 @@ export default function SignupPage() {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            
+            <div>
               <label className="block text-sm font-medium text-foreground mb-2">
                 Email Address
               </label>
@@ -58,7 +58,7 @@ export default function SignupPage() {
               />
             </div>
 
-            
+            <div>
               <label className="block text-sm font-medium text-foreground mb-2">
                 Password
               </label>
@@ -67,13 +67,13 @@ export default function SignupPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-4 py-3 border border-border rounded bg-background focus:outline-none focus:ring-2 focus:ring-secondary"
-                placeholder="••••••••"
+                placeholder="********"
                 required
               />
               <p className="text-xs text-muted-foreground mt-1">At least 6 characters</p>
             </div>
 
-            
+            <div>
               <label className="block text-sm font-medium text-foreground mb-2">
                 Confirm Password
               </label>
@@ -82,7 +82,7 @@ export default function SignupPage() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 className="w-full px-4 py-3 border border-border rounded bg-background focus:outline-none focus:ring-2 focus:ring-secondary"
-                placeholder="••••••••"
+                placeholder="********"
                 required
               />
             </div>
@@ -98,7 +98,7 @@ export default function SignupPage() {
 
           <p className="text-sm text-muted-foreground text-center mt-6">
             Already have an account?{' '}
-            <Link href="/login" className="text-secondary font-semibold hover:underline">
+            <Link href="/Pages/login" className="text-secondary font-semibold hover:underline">
               Sign in
             </Link>
           </p>

@@ -105,7 +105,6 @@ export default function WatchDetailPage() {
   return (
     <Layout>
       <div className="max-w-7xl mx-auto px-4 py-8">
-        {/* Breadcrumb */}
         <div className="mb-8 flex items-center gap-2 text-sm text-muted-foreground">
           <Link href="/" className="hover:text-foreground">Home</Link>
           <span>/</span>
@@ -114,9 +113,7 @@ export default function WatchDetailPage() {
           <span>{watch.name}</span>
         </div>
 
-        {/* Main Product Section */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-          {/* Image */}
           <div className="relative bg-muted rounded overflow-hidden h-96 md:h-full md:min-h-96">
             <Image
               src={watch.image}
@@ -128,13 +125,11 @@ export default function WatchDetailPage() {
             />
           </div>
 
-          {/* Details */}
           <div className="flex flex-col justify-between">
             <div>
               <p className="text-secondary font-semibold text-sm mb-2">{watch.brand}</p>
               <h1 className="text-4xl font-bold text-foreground mb-4">{watch.name}</h1>
 
-              {/* Rating */}
               <div className="flex items-center gap-3 mb-6">
                 <div className="flex gap-1">
                   {[...Array(5)].map((_, i) => (
@@ -148,19 +143,16 @@ export default function WatchDetailPage() {
                 </span>
               </div>
 
-              {/* Price */}
               <div className="mb-8 pb-8 border-b border-border">
                 <p className="text-3xl font-bold text-foreground">
                   ${watch.price.toLocaleString()}
                 </p>
               </div>
 
-              {/* Description */}
               <p className="text-foreground mb-8 leading-relaxed">
                 {watch.description}
               </p>
 
-              {/* Quantity Selector */}
               <div className="flex items-center gap-4 mb-8">
                 <label className="text-foreground font-medium">Quantity:</label>
                 <div className="flex items-center border border-border rounded">
@@ -186,7 +178,6 @@ export default function WatchDetailPage() {
                 </div>
               </div>
 
-              {/* Action Buttons */}
               <div className="flex gap-4">
                 <button
                   onClick={handleAddToCart}
@@ -205,7 +196,6 @@ export default function WatchDetailPage() {
           </div>
         </div>
 
-        {/* Tabs Section */}
         <div className="mb-16">
           <div className="flex gap-8 border-b border-border mb-8">
             {['overview', 'specs', 'reviews'].map(tab => (
@@ -219,7 +209,6 @@ export default function WatchDetailPage() {
             ))}
           </div>
 
-          {/* Tab Content */}
           {activeTab === 'overview' && (
             <div className="space-y-4">
               <p className="text-foreground leading-relaxed">
@@ -275,7 +264,6 @@ export default function WatchDetailPage() {
           )}
         </div>
 
-        {/* Related Products */}
         {relatedWatches.length > 0 && (
           <div>
             <h2 className="text-3xl font-bold text-foreground mb-8">Related Watches</h2>

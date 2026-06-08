@@ -7,7 +7,6 @@ export async function GET(request) {
       try {
         const searchParams = request.nextUrl.searchParams;
         
-        // Parse and validate query parameters
         const page = Math.max(1, parseInt(searchParams.get('page') || '1'));
         const perPage = Math.max(1, Math.min(100, parseInt(searchParams.get('perPage') || '10')));
         const search = (searchParams.get('search') || '').trim();
@@ -18,14 +17,12 @@ export async function GET(request) {
 
         console.log('[v0] Watches API called with params:', { page, perPage, search, brand, minPrice, maxPrice, sort });
 
-        // Validate data exists
         if (!watchesData || !Array.isArray(watchesData.watches)) {
           throw new Error('Watch data is unavailable');
         }
 
         let filtered = [...watchesData.watches];
 
-        // Filter by search term
         if (search) {
           const searchLower = search.toLowerCase();
           filtered = filtered.filter(
@@ -36,15 +33,12 @@ export async function GET(request) {
           );
         }
 
-        // Filter by brand
         if (brand) {
           filtered = filtered.filter(watch => watch.brand === brand);
         }
 
-        // Filter by price range
         filtered = filtered.filter(watch => watch.price >= minPrice && watch.price <= maxPrice);
 
-        // Sort with promise-based approach
         await Promise.resolve();
         if (sort === 'price-low') {
           filtered.sort((a, b) => a.price - b.price);
@@ -56,11 +50,9 @@ export async function GET(request) {
           filtered.sort((a, b) => b.id - a.id);
         }
 
-        // Pagination
         const total = filtered.length;
         const totalPages = Math.ceil(total / perPage);
 
-        // Validate page number
         if (page > totalPages && total > 0) {
           return NextResponse.json(
             { error: `Page ${page} exceeds maximum pages ${totalPages}` },
@@ -89,7 +81,7 @@ export async function GET(request) {
       }
     });
   } catch (error) {
-    console.error('[v0] Watches API error:', error instanceof Error ? error.message : String(error));
+    console.error('Watches API error:', error instanceof Error ? error.message : String(error));
     return NextResponse.json(
       { error: 'Failed to fetch watches', details: process.env.NODE_ENV === 'development' ? error.message : undefined },
       { status: 500 }

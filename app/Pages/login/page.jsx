@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from "@/hooks/useAuth.js";
-import { Layout } from "@/components/common/Layout.js";
+import { Layout } from "@/components/common/Layout.jsx";
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -23,14 +23,14 @@ export default function LoginPage() {
       await login(email, password);
       router.push('/');
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Login failed');
+      setError(err?.message || 'Login failed');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    
+    <Layout>
       <div className="min-h-[calc(100vh-200px)] flex items-center justify-center px-4">
         <div className="w-full max-w-md bg-card rounded p-8 shadow-lg border border-border">
           <h1 className="text-3xl font-semibold text-foreground mb-2">Welcome Back</h1>
@@ -43,7 +43,7 @@ export default function LoginPage() {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            
+            <div>
               <label className="block text-sm font-medium text-foreground mb-2">
                 Email Address
               </label>
@@ -57,7 +57,7 @@ export default function LoginPage() {
               />
             </div>
 
-            
+            <div>
               <label className="block text-sm font-medium text-foreground mb-2">
                 Password
               </label>
@@ -82,7 +82,7 @@ export default function LoginPage() {
 
           <p className="text-sm text-muted-foreground text-center mt-6">
             Don&apos;t have an account?{' '}
-            <Link href="/signup" className="text-secondary font-semibold hover:underline">
+            <Link href="/Pages/signup" className="text-secondary font-semibold hover:underline">
               Create one
             </Link>
           </p>
