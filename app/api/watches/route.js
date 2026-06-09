@@ -18,9 +18,6 @@ export async function GET(request) {
 		);
 		const sort = searchParams.get("sort") || "newest";
 
-		// ── FIX: read ALL `brand` params into an array (supports multi-brand filter)
-		// Previously only searchParams.get("brand") was used — that reads just the
-		// first value, so a second brand was ignored entirely.
 		const selectedBrands = searchParams.getAll("brand").filter(Boolean);
 
 		if (!watchesData || !Array.isArray(watchesData.watches)) {
@@ -39,7 +36,6 @@ export async function GET(request) {
 			);
 		}
 
-		// ── FIX: filter by ANY of the selected brands (OR logic)
 		if (selectedBrands.length > 0) {
 			filtered = filtered.filter((w) => selectedBrands.includes(w.brand));
 		}
@@ -51,7 +47,7 @@ export async function GET(request) {
 		if (sort === "price-low") filtered.sort((a, b) => a.price - b.price);
 		else if (sort === "price-high") filtered.sort((a, b) => b.price - a.price);
 		else if (sort === "rating") filtered.sort((a, b) => b.rating - a.rating);
-		else filtered.sort((a, b) => b.id - a.id); // newest
+		else filtered.sort((a, b) => b.id - a.id);
 
 		const total = filtered.length;
 		const totalpages = Math.ceil(total / perpage);

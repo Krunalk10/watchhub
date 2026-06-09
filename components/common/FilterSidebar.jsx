@@ -4,15 +4,12 @@ import { useState } from "react";
 
 export function FilterSidebar({
 	brands,
-	selectedBrand, // kept for API compat but we manage internally
+	selectedBrand,
 	onBrandChange,
 	onPriceChange,
 	onSortChange,
 	currentSort,
 }) {
-	// ── FIX: selectedBrands is now an ARRAY, not a single string.
-	// Previously it was a string so clicking a second brand replaced the first.
-	// Now every checked brand is kept in the array and all are sent to the API.
 	const [selectedBrands, setSelectedBrands] = useState([]);
 	const [minPrice, setMinPrice] = useState(0);
 	const [maxPrice, setMaxPrice] = useState(50000);
@@ -20,11 +17,9 @@ export function FilterSidebar({
 
 	const handleBrandToggle = (brand) => {
 		const updated = selectedBrands.includes(brand)
-			? selectedBrands.filter((b) => b !== brand) // uncheck → remove
-			: [...selectedBrands, brand]; // check   → add
-
+			? selectedBrands.filter((b) => b !== brand)
+			: [...selectedBrands, brand];
 		setSelectedBrands(updated);
-		// Pass the array up — WatchesContent joins it into the query string
 		onBrandChange(updated);
 	};
 
@@ -51,7 +46,6 @@ export function FilterSidebar({
 
 	return (
 		<div className="bg-card rounded p-6 h-fit sticky top-4">
-			{/* Sort */}
 			<div className="mb-8">
 				<h3 className="font-semibold text-foreground mb-4">Sort By</h3>
 				<select
@@ -66,7 +60,6 @@ export function FilterSidebar({
 				</select>
 			</div>
 
-			{/* Brand Filter — multi-select checkboxes */}
 			<div className="mb-8">
 				<h3 className="font-semibold text-foreground mb-4">
 					Brands
@@ -94,7 +87,6 @@ export function FilterSidebar({
 				</div>
 			</div>
 
-			{/* Price Range */}
 			<div className="mb-8">
 				<h3 className="font-semibold text-foreground mb-4">Price Range</h3>
 				<div className="space-y-4">
@@ -131,7 +123,6 @@ export function FilterSidebar({
 				</div>
 			</div>
 
-			{/* Reset */}
 			<button
 				onClick={handleReset}
 				className="w-full py-2 px-4 border border-foreground text-foreground rounded hover:bg-foreground hover:text-background transition text-sm font-semibold"

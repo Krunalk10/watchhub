@@ -11,20 +11,17 @@ export default function Wishlistpage() {
 	const router = useRouter();
 	const [wishlistItems, setWishlistItems] = useState([]);
 
-	// Effect 1 — redirect only after auth is fully resolved
 	useEffect(() => {
 		if (!loading && !isAuthenticated) {
 			router.push("/pages/login");
 		}
 	}, [isAuthenticated, loading, router]);
 
-	// Effect 2 — load wishlist once on mount, never re-runs
 	useEffect(() => {
 		const wishlist = JSON.parse(sessionStorage.getItem("wishlist") || "[]");
 		setWishlistItems(wishlist);
 	}, []);
 
-	// Wait for auth to resolve before rendering anything
 	if (loading) return null;
 	if (!isAuthenticated) return null;
 
@@ -74,7 +71,7 @@ export default function Wishlistpage() {
 							>
 								<Link
 									href={`/watches/${watch.id}`}
-									className="flex-shrink-0 w-full md:w-48"
+									className="shrink-0 w-full md:w-48"
 								>
 									<div className="relative w-full h-40 bg-muted rounded overflow-hidden hover:scale-105 transition-transform">
 										<img

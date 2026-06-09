@@ -12,25 +12,17 @@ export default function Cartpage() {
 	const router = useRouter();
 	const [cartItems, setCartItems] = useState([]);
 
-	// ── FIX: Split auth-redirect and cart-load into two separate effects.
-	// Previously both were in one effect with [isAuthenticated, router] as deps,
-	// causing the cart to be re-read (and briefly show empty) every time
-	// isAuthenticated changed during hydration.
-
-	// Effect 1 — redirect if not logged in (only runs after auth is resolved)
 	useEffect(() => {
 		if (!loading && !isAuthenticated) {
 			router.push("/pages/login");
 		}
 	}, [isAuthenticated, loading, router]);
 
-	// Effect 2 — load cart ONCE on mount, never re-runs
 	useEffect(() => {
 		const cart = JSON.parse(sessionStorage.getItem("cart") || "[]");
 		setCartItems(cart);
 	}, []);
 
-	// Show nothing while auth is still resolving
 	if (loading) return null;
 	if (!isAuthenticated) return null;
 
