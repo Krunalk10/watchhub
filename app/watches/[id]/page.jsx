@@ -40,13 +40,13 @@ export default function WatchDetailPage() {
 
   const handleAddToCart = () => {
     if (!isAuthenticated) {
-      router.push('/login');
+      router.push("/Pages/login");
       return;
     }
 
     if (!watch) return;
 
-    const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
+    const cart = JSON.parse(sessionStorage.getItem("cart") || "[]");
     const existingItem = cart.find((item) => item.id === watch.id);
 
     if (existingItem) {
@@ -55,27 +55,27 @@ export default function WatchDetailPage() {
       cart.push({ ...watch, quantity });
     }
 
-    sessionStorage.setItem('cart', JSON.stringify(cart));
+    sessionStorage.setItem("cart", JSON.stringify(cart));
     alert(`${watch.name} added to cart!`);
   };
 
   const handleAddToWishlist = () => {
     if (!isAuthenticated) {
-      router.push('/login');
+      router.push("/Pages/login");
       return;
     }
 
     if (!watch) return;
 
-    const wishlist = JSON.parse(sessionStorage.getItem('wishlist') || '[]');
+    const wishlist = JSON.parse(sessionStorage.getItem("wishlist") || "[]");
     const exists = wishlist.find((item) => item.id === watch.id);
 
     if (!exists) {
       wishlist.push(watch);
-      sessionStorage.setItem('wishlist', JSON.stringify(wishlist));
+      sessionStorage.setItem("wishlist", JSON.stringify(wishlist));
       alert(`${watch.name} added to wishlist!`);
     } else {
-      alert('Already in your wishlist!');
+      alert("Already in your wishlist!");
     }
   };
 
