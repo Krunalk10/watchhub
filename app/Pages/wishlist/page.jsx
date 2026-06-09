@@ -2,29 +2,31 @@
 
 import { useEffect, useState } from "react";
 import { Layout } from "@/components/common/Layout.jsx";
-// import { WatchCard } from "@/components/common/WatchCard.jsx";
 import { useAuth } from "@/hooks/useAuth.js";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function Wishlistpage() {
-	const { isAuthenticated } = useAuth();
+	const { isAuthenticated, loading } = useAuth();
 	const router = useRouter();
 	const [wishlistItems, setWishlistItems] = useState([]);
-	const [mounted, setMounted] = useState(false);
 
+	// Effect 1 — redirect only after auth is fully resolved
 	useEffect(() => {
-		setMounted(true);
-		if (!isAuthenticated) {
+		if (!loading && !isAuthenticated) {
 			router.push("/pages/login");
-			return;
 		}
+	}, [isAuthenticated, loading, router]);
 
+	// Effect 2 — load wishlist once on mount, never re-runs
+	useEffect(() => {
 		const wishlist = JSON.parse(sessionStorage.getItem("wishlist") || "[]");
 		setWishlistItems(wishlist);
-	}, [isAuthenticated, router]);
+	}, []);
 
-	if (!mounted) return null;
+	// Wait for auth to resolve before rendering anything
+	if (loading) return null;
+	if (!isAuthenticated) return null;
 
 	const handleRemoveFromWishlist = (id) => {
 		const updated = wishlistItems.filter((item) => item.id !== id);

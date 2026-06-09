@@ -8,23 +8,31 @@ import Link from "next/link";
 import Image from "next/image";
 
 export default function Cartpage() {
-	const { isAuthenticated } = useAuth();
+	const { isAuthenticated, loading } = useAuth();
 	const router = useRouter();
 	const [cartItems, setCartItems] = useState([]);
-	const [mounted, setMounted] = useState(false);
 
+	// ── FIX: Split auth-redirect and cart-load into two separate effects.
+	// Previously both were in one effect with [isAuthenticated, router] as deps,
+	// causing the cart to be re-read (and briefly show empty) every time
+	// isAuthenticated changed during hydration.
+
+	// Effect 1 — redirect if not logged in (only runs after auth is resolved)
 	useEffect(() => {
-		setMounted(true);
-		if (!isAuthenticated) {
-			router.push("/login");
-			return;
+		if (!loading && !isAuthenticated) {
+			router.push("/pages/login");
 		}
+	}, [isAuthenticated, loading, router]);
 
+	// Effect 2 — load cart ONCE on mount, never re-runs
+	useEffect(() => {
 		const cart = JSON.parse(sessionStorage.getItem("cart") || "[]");
 		setCartItems(cart);
-	}, [isAuthenticated, router]);
+	}, []);
 
-	if (!mounted) return null;
+	// Show nothing while auth is still resolving
+	if (loading) return null;
+	if (!isAuthenticated) return null;
 
 	const handleRemoveItem = (id) => {
 		const updatedCart = cartItems.filter((item) => item.id !== id);
@@ -37,7 +45,6 @@ export default function Cartpage() {
 			handleRemoveItem(id);
 			return;
 		}
-
 		const updatedCart = cartItems.map((item) =>
 			item.id === id ? { ...item, quantity } : item,
 		);
