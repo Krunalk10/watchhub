@@ -13,7 +13,9 @@ All API routes and hooks have been enhanced with comprehensive error handling us
 ### 1. Authentication Routes (`/app/api/auth/`)
 
 #### Login Route (`/app/api/auth/login/route.js`)
+
 **Enhancements:**
+
 - Wrapped request body parsing in try-catch
 - Added email format validation regex
 - Used `Promise.resolve()` for cleaner async handling
@@ -22,12 +24,15 @@ All API routes and hooks have been enhanced with comprehensive error handling us
 - Detailed error messages for better debugging
 
 **Error Handling:**
+
 - Invalid JSON format detection
 - Email validation before processing
 - Response status differentiation (400, 401, 500)
 
 #### Signup Route (`/app/api/auth/signup/route.js`)
+
 **Enhancements:**
+
 - Wrapped request body parsing in try-catch
 - Added email format validation
 - Password strength validation (minimum 6 characters)
@@ -37,6 +42,7 @@ All API routes and hooks have been enhanced with comprehensive error handling us
 - Comprehensive error logging
 
 **Error Handling:**
+
 - Field validation with specific error messages
 - Email format validation
 - Password requirements enforcement
@@ -45,17 +51,20 @@ All API routes and hooks have been enhanced with comprehensive error handling us
 ### 2. Watch Data Routes (`/app/api/watches/`)
 
 #### Watches List Route (`/app/api/watches/route.js`)
+
 **Enhancements:**
+
 - Wrapped entire logic in `Promise.resolve().then(async () => { ... })`
 - Input validation and sanitization
-- Parameter bounds checking (perPage max 100)
+- Parameter bounds checking (perpage max 100)
 - Data validation before processing
 - `await Promise.resolve()` for sort operations
-- Page number validation
+- page number validation
 - Comprehensive console logging
 - Detailed error reporting
 
 **Features:**
+
 - Safe pagination with bounds checking
 - Search filtering with lowercase comparison
 - Brand and price range filtering
@@ -63,7 +72,9 @@ All API routes and hooks have been enhanced with comprehensive error handling us
 - Proper error responses for invalid pages
 
 #### Watch Detail Route (`/app/api/watches/[id]/route.js`)
+
 **Enhancements:**
+
 - Promise-based parameter extraction
 - ID validation and numeric check
 - Data availability validation
@@ -73,6 +84,7 @@ All API routes and hooks have been enhanced with comprehensive error handling us
 - Proper HTTP status codes
 
 **Error Handling:**
+
 - Invalid ID format detection
 - Watch not found (404) response
 - Data availability checks
@@ -85,19 +97,21 @@ All API routes and hooks have been enhanced with comprehensive error handling us
 ### 1. useAuth Hook (`/hooks/useAuth.js`)
 
 **Login Method:**
+
 ```javascript
 const login = async (email, password) => {
-  return new Promise(async (resolve, reject) => {
-    // Promise-based implementation with try-catch
-    // Handles response validation
-    // Checks for success flag and required fields
-    // Stores auth data securely
-    // Logs all operations
-  });
+	return new Promise(async (resolve, reject) => {
+		// Promise-based implementation with try-catch
+		// Handles response validation
+		// Checks for success flag and required fields
+		// Stores auth data securely
+		// Logs all operations
+	});
 };
 ```
 
 **Enhancements:**
+
 - Returns explicit Promise for better handling
 - Response format validation
 - Graceful error handling
@@ -105,12 +119,14 @@ const login = async (email, password) => {
 - Operation logging
 
 **Signup Method:**
+
 - Similar Promise-based implementation
 - Email validation for duplicate checking
 - Comprehensive error messaging
 - Session initialization
 
 **Logout Method:**
+
 - Try-catch wrapped cleanup
 - Safe session storage removal
 - Error logging
@@ -118,6 +134,7 @@ const login = async (email, password) => {
 ### 2. useFetch Hook (`/hooks/useFetch.js`)
 
 **Enhancements:**
+
 - AbortController for request cancellation
 - Promise-based error handling
 - Signal support for cleanup on unmount
@@ -127,6 +144,7 @@ const login = async (email, password) => {
 - Network error differentiation
 
 **Features:**
+
 - Automatic abort on component unmount
 - Request timeout handling
 - Response validation
@@ -138,7 +156,9 @@ const login = async (email, password) => {
 ## API Utility Functions (`/lib/api.js`)
 
 ### validateAuth Function
+
 **Enhancements:**
+
 - Promise wrapper with explicit resolve/reject
 - Input validation
 - Error logging with function context
@@ -146,7 +166,9 @@ const login = async (email, password) => {
 - User not found graceful handling
 
 ### registerUser Function
+
 **Enhancements:**
+
 - Promise-based implementation
 - Duplicate user detection
 - Input validation
@@ -154,7 +176,9 @@ const login = async (email, password) => {
 - JSDoc documentation
 
 ### getUserById Function
+
 **Enhancements:**
+
 - Promise wrapper
 - ID validation
 - Error handling
@@ -166,67 +190,70 @@ const login = async (email, password) => {
 ## Error Handling Patterns
 
 ### Pattern 1: Promise Wrapper
+
 ```javascript
 export async function functionName(param) {
-  return new Promise((resolve, reject) => {
-    try {
-      // Validation
-      if (!param) throw new Error('Param required');
-      
-      // Logic
-      const result = doSomething(param);
-      
-      // Success
-      console.log('[v0] Success');
-      resolve(result);
-    } catch (error) {
-      console.error('[v0] Error:', error.message);
-      reject(error);
-    }
-  });
+	return new Promise((resolve, reject) => {
+		try {
+			// Validation
+			if (!param) throw new Error("Param required");
+
+			// Logic
+			const result = doSomething(param);
+
+			// Success
+			console.log("[v0] Success");
+			resolve(result);
+		} catch (error) {
+			console.error("[v0] Error:", error.message);
+			reject(error);
+		}
+	});
 }
 ```
 
 ### Pattern 2: API Route Try-Catch
+
 ```javascript
 export async function GET(request) {
-  try {
-    return await Promise.resolve().then(async () => {
-      try {
-        // Validation
-        // Processing
-        // Success response
-      } catch (err) {
-        throw err;
-      }
-    });
-  } catch (error) {
-    console.error('[v0] Error:', error.message);
-    return NextResponse.json({ error: 'Message' }, { status: 500 });
-  }
+	try {
+		return await Promise.resolve().then(async () => {
+			try {
+				// Validation
+				// Processing
+				// Success response
+			} catch (err) {
+				throw err;
+			}
+		});
+	} catch (error) {
+		console.error("[v0] Error:", error.message);
+		return NextResponse.json({ error: "Message" }, { status: 500 });
+	}
 }
 ```
 
 ### Pattern 3: Hook Promise Implementation
+
 ```javascript
 const login = async (email, password) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      // Fetch
-      const response = await fetch(url);
-      
-      // Validation
-      if (!response.ok) throw new Error(errorData.error);
-      
-      // Processing
-      setData(data);
-      
-      // Success
-      resolve(data);
-    } catch (error) {
-      reject(error);
-    }
-  });
+	return new Promise(async (resolve, reject) => {
+		try {
+			// Fetch
+			const response = await fetch(url);
+
+			// Validation
+			if (!response.ok) throw new Error(errorData.error);
+
+			// Processing
+			setData(data);
+
+			// Success
+			resolve(data);
+		} catch (error) {
+			reject(error);
+		}
+	});
 };
 ```
 
@@ -237,11 +264,13 @@ const login = async (email, password) => {
 All operations use `console.log('[v0] ...')` and `console.error('[v0] ...')` format for easy debugging:
 
 **Success Logs:**
+
 - User authentication success
 - Data fetches
 - Operation completion
 
 **Error Logs:**
+
 - Invalid inputs
 - Network errors
 - Processing failures
@@ -251,15 +280,15 @@ All operations use `console.log('[v0] ...')` and `console.error('[v0] ...')` for
 
 ## HTTP Status Codes
 
-| Code | Scenario |
-|------|----------|
-| 200 | Successful GET request |
-| 201 | Resource created |
-| 400 | Invalid request format |
-| 401 | Authentication failure |
-| 404 | Resource not found |
-| 409 | Conflict (duplicate user) |
-| 500 | Server error |
+| Code | Scenario                  |
+| ---- | ------------------------- |
+| 200  | Successful GET request    |
+| 201  | Resource created          |
+| 400  | Invalid request format    |
+| 401  | Authentication failure    |
+| 404  | Resource not found        |
+| 409  | Conflict (duplicate user) |
+| 500  | Server error              |
 
 ---
 

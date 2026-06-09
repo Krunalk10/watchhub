@@ -3,16 +3,19 @@
 ## 🚀 Get Started in 30 Seconds
 
 ### 1. Install Dependencies
+
 ```bash
 pnpm install
 ```
 
 ### 2. Start Development Server
+
 ```bash
 pnpm dev
 ```
 
 ### 3. Open in Browser
+
 Visit: **http://localhost:3000**
 
 That's it! The app is ready to use.
@@ -20,28 +23,34 @@ That's it! The app is ready to use.
 ## 📖 How to Use
 
 ### Browse Watches
+
 1. Click "Watches" in the navigation bar
 2. Use filters on the left (Brand, Price)
 3. Use search bar to find specific watches
 4. Click any watch to see details
 
 ### Create Account
+
 1. Click "Sign Up" button
 2. Enter email and password
 3. Click "Create Account"
 4. You're logged in!
 
 ### Test Account
+
 You can create any account with:
+
 - Email: `test@watchhub.com`
 - Password: `Password123` (6+ characters)
 
 ### Shopping
+
 1. Click "Add to Cart" on any watch
 2. Go to "Cart" in navbar to manage items
 3. Adjust quantities or remove items
 
 ### Wishlist
+
 1. Click "Add to Wishlist" on any watch (after login)
 2. Visit "Wishlist" in navbar
 3. Move items to cart or remove
@@ -49,25 +58,30 @@ You can create any account with:
 ## 🎨 Features to Try
 
 ✨ **Search with Debounce**
+
 - Type in search bar - results update after 300ms
 - Searches by brand, name, or description
 
 ✨ **Smart Filters**
+
 - Select brand to filter by manufacturer
 - Adjust price range slider
 - Sort by newest, price, or rating
 
 ✨ **Pagination**
+
 - Navigate through pages of watches
 - Shows 10 watches per page
 - Total of 1000 watches available
 
 ✨ **Responsive Design**
+
 - Resize browser to see mobile menu
 - All features work on mobile devices
 - Professional layout on all sizes
 
 ✨ **Watch Details**
+
 - View specifications in dedicated tabs
 - Read customer reviews
 - See related products
@@ -88,17 +102,17 @@ You can create any account with:
 - Redirects to login page when needed
 - Logout button appears in navbar after login
 
-## 🎯 Key Pages
+## 🎯 Key pages
 
-| URL | What to See |
-|-----|------------|
-| `/` | Home page with hero section |
-| `/watches` | All watches with filters |
-| `/watches/1` | Detailed watch page |
-| `/login` | Login form |
-| `/signup` | Registration form |
-| `/cart` | Shopping cart |
-| `/wishlist` | Saved watches |
+| URL          | What to See                 |
+| ------------ | --------------------------- |
+| `/`          | Home page with hero section |
+| `/watches`   | All watches with filters    |
+| `/watches/1` | Detailed watch page         |
+| `/login`     | Login form                  |
+| `/signup`    | Registration form           |
+| `/cart`      | Shopping cart               |
+| `/wishlist`  | Saved watches               |
 
 ## 💡 Pro Tips
 
@@ -111,27 +125,32 @@ You can create any account with:
 ## 🐛 Troubleshooting
 
 ### App won't start?
+
 ```bash
 pnpm install
 pnpm dev
 ```
 
 ### Port 3000 already in use?
+
 ```bash
 pnpm dev -- -p 3001
 ```
 
 ### Can't add to cart?
+
 - Make sure you're logged in (Sign Up first)
 - Login redirects to home page after success
 
 ### Search not working?
+
 - It's debounced with 300ms delay
 - Wait after typing before checking results
 
 ## 📚 Learn More
 
 See detailed documentation:
+
 - **README.md** - Full project documentation
 - **IMPLEMENTATION_SUMMARY.md** - What was built and how
 
@@ -148,17 +167,21 @@ See detailed documentation:
 ## 🎨 Customization
 
 ### Change Theme Colors
+
 Edit `app/globals.css` - Color variables at top
 
 ### Add More Watches
+
 Edit `data/watches.json` or regenerate with script
 
-### Modify Products Per Page
-Edit `/api/watches/route.ts` - Change `perPage` value
+### Modify Products Per page
+
+Edit `/api/watches/route.ts` - Change `perpage` value
 
 ## 📞 Support
 
 Questions? Check:
+
 1. README.md for detailed info
 2. Component files in `components/`
 3. API routes in `app/api/`

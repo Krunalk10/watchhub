@@ -5,6 +5,7 @@ A modern, fully-featured e-commerce platform for buying and selling luxury watch
 ## Features
 
 ✨ **Complete E-Commerce Experience**
+
 - Browse 1000+ premium watches from world-renowned brands
 - Advanced filtering by brand and price range
 - Smart sorting (newest, price, ratings)
@@ -12,18 +13,21 @@ A modern, fully-featured e-commerce platform for buying and selling luxury watch
 - Responsive design for mobile, tablet, and desktop
 
 🔐 **User Authentication**
+
 - Sign up and login system
 - Session-based authentication
 - Protected cart and wishlist features
 
 🛒 **Shopping Features**
+
 - Add watches to cart with quantity selection
 - Manage wishlist for favorite watches
 - View detailed product information
 - Read customer reviews and specifications
 - Browse related watches
 
-🎯 **Product Pages**
+🎯 **Product pages**
+
 - Beautiful hero section on home page
 - Detailed watch pages with:
   - Product images and pricing
@@ -63,7 +67,7 @@ A modern, fully-featured e-commerce platform for buying and selling luxury watch
 │       ├── WatchCard.tsx        # Product card component
 │       ├── SearchBar.tsx        # Search with debouncing
 │       ├── FilterSidebar.tsx    # Filters and sorting
-│       └── Pagination.tsx       # Page navigation
+│       └── Pagination.tsx       # page navigation
 ├── hooks/
 │   ├── useAuth.ts              # Authentication logic
 │   ├── useDebounce.ts          # Debounce hook for search
@@ -82,17 +86,20 @@ A modern, fully-featured e-commerce platform for buying and selling luxury watch
 ## Getting Started
 
 ### Prerequisites
-- Node.js 18+ 
+
+- Node.js 18+
 - pnpm (or npm/yarn)
 
 ### Installation
 
 1. Install dependencies:
+
 ```bash
 pnpm install
 ```
 
 2. Set up environment variables (already configured in `.env.local`):
+
 ```bash
 NEXT_PUBLIC_API_BASE_URL=http://localhost:3000/api
 NEXT_PUBLIC_SITE_NAME=WatchHub
@@ -100,6 +107,7 @@ AUTH_SECRET=watch-store-secret-key-change-in-production
 ```
 
 3. Start the development server:
+
 ```bash
 pnpm dev
 ```
@@ -109,12 +117,14 @@ pnpm dev
 ## Key Features Explained
 
 ### 1. Authentication System
+
 - Uses `sessionStorage` for session-only persistence (clears on browser close)
 - Login/Signup with email and password validation
 - Protected routes redirect to login page
 - User session managed via custom `useAuth` hook
 
 ### 2. Product Browsing
+
 - 1000 watches with realistic data (brands, prices, ratings)
 - Advanced filtering:
   - Filter by brand (20+ brands)
@@ -124,13 +134,15 @@ pnpm dev
 - Pagination with 10 watches per page
 
 ### 3. Cart & Wishlist
+
 - Session-based storage (no database persistence)
 - Add items with quantity selection
 - Remove items and update quantities
 - Cart summary with subtotal, tax, and total
 - Both require authentication
 
-### 4. Watch Details Page
+### 4. Watch Details page
+
 - Full product information display
 - Specifications in organized grid
 - Customer reviews section
@@ -140,23 +152,27 @@ pnpm dev
 ## Technology Stack
 
 **Frontend:**
+
 - Next.js 14+ (App Router)
 - React 19+
 - TypeScript
 - Tailwind CSS
 
 **State Management:**
+
 - React Hooks
 - sessionStorage (session-only persistence)
 - Custom hooks (useAuth, useDebounce, useFetch)
 
 **Styling:**
+
 - Tailwind CSS with premium color scheme
 - Gold accent colors (#d4af37)
 - Neutral backgrounds (off-white/dark)
 - Responsive design patterns
 
 **API:**
+
 - Next.js API Routes
 - RESTful endpoints
 - In-memory user storage
@@ -164,16 +180,19 @@ pnpm dev
 ## API Endpoints
 
 ### Authentication
+
 - `POST /api/auth/login` - User login
 - `POST /api/auth/signup` - User registration
 
 ### Watches
+
 - `GET /api/watches` - List watches with pagination, filtering, and search
 - `GET /api/watches/[id]` - Get single watch details
 
 Query parameters for `/api/watches`:
-- `page` - Page number (default: 1)
-- `perPage` - Items per page (default: 10)
+
+- `page` - page number (default: 1)
+- `perpage` - Items per page (default: 10)
 - `search` - Search query
 - `brand` - Filter by brand
 - `minPrice` - Minimum price
@@ -183,35 +202,38 @@ Query parameters for `/api/watches`:
 ## Component Usage
 
 ### WatchCard Component
+
 ```tsx
-<WatchCard 
-  watch={watch} 
-  onAddToCart={handleAddToCart}
-  onAddToWishlist={handleAddToWishlist}
+<WatchCard
+	watch={watch}
+	onAddToCart={handleAddToCart}
+	onAddToWishlist={handleAddToWishlist}
 />
 ```
 
 ### FilterSidebar Component
+
 ```tsx
 <FilterSidebar
-  brands={brands}
-  onBrandChange={setBrand}
-  onPriceChange={(min, max) => { /* ... */ }}
-  onSortChange={setSort}
+	brands={brands}
+	onBrandChange={setBrand}
+	onPriceChange={(min, max) => {
+		/* ... */
+	}}
+	onSortChange={setSort}
 />
 ```
 
 ### SearchBar with Debounce
+
 ```tsx
-<SearchBar 
-  onSearch={setSearch}
-  placeholder="Search watches..."
-/>
+<SearchBar onSearch={setSearch} placeholder="Search watches..." />
 ```
 
 ## Design System
 
 ### Colors
+
 - **Primary**: #1a1a1a (Dark)
 - **Secondary**: #d4af37 (Gold accent)
 - **Background**: #fafaf8 (Off-white)
@@ -219,6 +241,7 @@ Query parameters for `/api/watches`:
 - **Muted**: #e5e5e0 (Light backgrounds)
 
 ### Typography
+
 - **Headings**: Sans-serif (bold)
 - **Body**: Sans-serif (regular)
 - **Accents**: Gold (#d4af37)
@@ -235,7 +258,7 @@ Query parameters for `/api/watches`:
 
 Test the application by:
 
-1. **Home Page**: Visit `/` - See hero section and featured watches
+1. **Home page**: Visit `/` - See hero section and featured watches
 2. **Watches Listing**: Visit `/watches` - Browse all watches with filters
 3. **Search**: Use search bar with debouncing
 4. **Filters**: Select brand and adjust price range
@@ -247,18 +270,23 @@ Test the application by:
 ## Development Notes
 
 ### Adding New Watches
+
 Edit `/data/watches.json` or regenerate using the script:
+
 ```bash
 node /tmp/generate-watches.js
 ```
 
 ### Custom Hooks
+
 - `useAuth()` - Manages user authentication and session
 - `useDebounce()` - Debounces values with custom delay
 - `useFetch()` - Generic data fetching with loading/error states
 
 ### Environment Variables
+
 All necessary env vars are in `.env.local`. Key variables:
+
 - `NEXT_PUBLIC_API_BASE_URL` - API base URL
 - `NEXT_PUBLIC_SITE_NAME` - Site branding
 - `AUTH_SECRET` - Authentication secret key
@@ -282,4 +310,5 @@ MIT
 ## Support
 
 For support, create an issue or contact the development team.
+
 # watchhub

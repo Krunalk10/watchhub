@@ -1,90 +1,116 @@
-import { NextRequest, NextResponse } from 'next/server';
-import watchesData from '@/data/watches.json' assert { type: 'json' };
+import { NextRequest, NextResponse } from "next/server";
+import watchesData from "@/data/watches.json" assert { type: "json" };
 
 export async function GET(request) {
-  try {
-    return await Promise.resolve().then(async () => {
-      try {
-        const searchParams = request.nextUrl.searchParams;
-        
-        const page = Math.max(1, parseInt(searchParams.get('page') || '1'));
-        const perPage = Math.max(1, Math.min(100, parseInt(searchParams.get('perPage') || '10')));
-        const search = (searchParams.get('search') || '').trim();
-        const brand = (searchParams.get('brand') || '').trim();
-        const minPrice = Math.max(0, parseInt(searchParams.get('minPrice') || '0'));
-        const maxPrice = Math.max(minPrice, parseInt(searchParams.get('maxPrice') || '50000'));
-        const sort = searchParams.get('sort') || 'newest';
+	try {
+		return await Promise.resolve().then(async () => {
+			try {
+				const searchParams = request.nextUrl.searchParams;
 
-        console.log('Watches API called with params:', { page, perPage, search, brand, minPrice, maxPrice, sort });
+				const page = Math.max(1, parseInt(searchParams.get("page") || "1"));
+				const perpage = Math.max(
+					1,
+					Math.min(100, parseInt(searchParams.get("perpage") || "10")),
+				);
+				const search = (searchParams.get("search") || "").trim();
+				const brand = (searchParams.get("brand") || "").trim();
+				const minPrice = Math.max(
+					0,
+					parseInt(searchParams.get("minPrice") || "0"),
+				);
+				const maxPrice = Math.max(
+					minPrice,
+					parseInt(searchParams.get("maxPrice") || "50000"),
+				);
+				const sort = searchParams.get("sort") || "newest";
 
-        if (!watchesData || !Array.isArray(watchesData.watches)) {
-          throw new Error('Watch data is unavailable');
-        }
+				console.log("Watches API called with params:", {
+					page,
+					perpage,
+					search,
+					brand,
+					minPrice,
+					maxPrice,
+					sort,
+				});
 
-        let filtered = [...watchesData.watches];
+				if (!watchesData || !Array.isArray(watchesData.watches)) {
+					throw new Error("Watch data is unavailable");
+				}
 
-        if (search) {
-          const searchLower = search.toLowerCase();
-          filtered = filtered.filter(
-            watch =>
-              watch.name.toLowerCase().includes(searchLower) ||
-              watch.brand.toLowerCase().includes(searchLower) ||
-              watch.description.toLowerCase().includes(searchLower)
-          );
-        }
+				let filtered = [...watchesData.watches];
 
-        if (brand) {
-          filtered = filtered.filter(watch => watch.brand === brand);
-        }
+				if (search) {
+					const searchLower = search.toLowerCase();
+					filtered = filtered.filter(
+						(watch) =>
+							watch.name.toLowerCase().includes(searchLower) ||
+							watch.brand.toLowerCase().includes(searchLower) ||
+							watch.description.toLowerCase().includes(searchLower),
+					);
+				}
 
-        filtered = filtered.filter(watch => watch.price >= minPrice && watch.price <= maxPrice);
+				if (brand) {
+					filtered = filtered.filter((watch) => watch.brand === brand);
+				}
 
-        await Promise.resolve();
-        if (sort === 'price-low') {
-          filtered.sort((a, b) => a.price - b.price);
-        } else if (sort === 'price-high') {
-          filtered.sort((a, b) => b.price - a.price);
-        } else if (sort === 'rating') {
-          filtered.sort((a, b) => b.rating - a.rating);
-        } else if (sort === 'newest') {
-          filtered.sort((a, b) => b.id - a.id);
-        }
+				filtered = filtered.filter(
+					(watch) => watch.price >= minPrice && watch.price <= maxPrice,
+				);
 
-        const total = filtered.length;
-        const totalPages = Math.ceil(total / perPage);
+				await Promise.resolve();
+				if (sort === "price-low") {
+					filtered.sort((a, b) => a.price - b.price);
+				} else if (sort === "price-high") {
+					filtered.sort((a, b) => b.price - a.price);
+				} else if (sort === "rating") {
+					filtered.sort((a, b) => b.rating - a.rating);
+				} else if (sort === "newest") {
+					filtered.sort((a, b) => b.id - a.id);
+				}
 
-        if (page > totalPages && total > 0) {
-          return NextResponse.json(
-            { error: `Page ${page} exceeds maximum pages ${totalPages}` },
-            { status: 400 }
-          );
-        }
+				const total = filtered.length;
+				const totalpages = Math.ceil(total / perpage);
 
-        const startIndex = (page - 1) * perPage;
-        const endIndex = startIndex + perPage;
-        const watches = filtered.slice(startIndex, endIndex);
+				if (page > totalpages && total > 0) {
+					return NextResponse.json(
+						{ error: `page ${page} exceeds maximum pages ${totalpages}` },
+						{ status: 400 },
+					);
+				}
 
-        console.log('[v0] Returning', watches.length, 'watches');
+				const startIndex = (page - 1) * perpage;
+				const endIndex = startIndex + perpage;
+				const watches = filtered.slice(startIndex, endIndex);
 
-        return NextResponse.json({
-          success: true,
-          watches,
-          pagination: {
-            page,
-            perPage,
-            total,
-            totalPages,
-          },
-        });
-      } catch (err) {
-        throw err;
-      }
-    });
-  } catch (error) {
-    console.error('Watches API error:', error instanceof Error ? error.message : String(error));
-    return NextResponse.json(
-      { error: 'Failed to fetch watches', details: process.env.NODE_ENV === 'development' ? error.message : undefined },
-      { status: 500 }
-    );
-  }
+				console.log("[v0] Returning", watches.length, "watches");
+
+				return NextResponse.json({
+					success: true,
+					watches,
+					pagination: {
+						page,
+						perpage,
+						total,
+						totalpages,
+					},
+				});
+			} catch (err) {
+				throw err;
+			}
+		});
+	} catch (error) {
+		console.error(
+			"Watches API error:",
+			error instanceof Error ? error.message : String(error),
+		);
+		return NextResponse.json(
+			{
+				error: "Failed to fetch watches",
+				details:
+					process.env.NODE_ENV === "development" ? error.message : undefined,
+			},
+			{ status: 500 },
+		);
+	}
 }
