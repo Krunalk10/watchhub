@@ -16,7 +16,7 @@ export default function WishlistPage() {
   useEffect(() => {
     setMounted(true);
     if (!isAuthenticated) {
-      router.push('/login');
+      router.push("/Pages/login");
       return;
     }
 
