@@ -7,7 +7,7 @@ export async function POST(request) {
 		try {
 			requestBody = await request.json();
 		} catch (parseError) {
-			console.error("[v0] Invalid JSON in login request:", parseError.message);
+			console.error("Invalid JSON in login request:", parseError.message);
 			return NextResponse.json(
 				{ error: "Invalid request format" },
 				{ status: 400 },
